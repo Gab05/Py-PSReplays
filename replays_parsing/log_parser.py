@@ -20,25 +20,23 @@ class LogParser:
     def __parse_logs(self, logs) -> List[str]:
         # TODO [DanicPy]: Parse logs before returning!
         null = None
-        string = logs
-        x = string["log"].split("\n")
-        data = []
+        splitted_battle_log = logs["log"].split("\n")
+        battle = []
         pattern1 = r"\|switch\|"
         pattern2 = r"\|move\|"
         pattern3 = r"\|turn\|"
         pattern4 = r"\|win\|"
         pattern5 = r"\|faint\|"
         # keep what starts with those patterns
-        for i in range(len(x)):
-            if re.match(pattern1, x[i]) or re.match(pattern2, x[i]) or re.match(pattern3, x[i]) or \
-                    re.match(pattern4, x[i]) or re.match(pattern5, x[i]):
-                data.append(x[i])
-        return data
+        for i in range(len(splitted_battle_log)):
+            if re.match(pattern1, splitted_battle_log[i]) or re.match(pattern2, splitted_battle_log[i]) or re.match(pattern3, splitted_battle_log[i]) or \
+                    re.match(pattern4, splitted_battle_log[i]) or re.match(pattern5, splitted_battle_log[i]):
+                battle.append(splitted_battle_log[i])
+        return battle
 
     def __parse_logs_with_battle_output(self, logs):
         null = None
-        string = logs
-        x = string["log"].split("\n")
+        splitted_battle_log = logs["log"].split("\n")
         pattern1 = r"\|j\|"
         pattern2 = r"\|c\|"
         pattern3 = r"\|l\|"
@@ -46,8 +44,8 @@ class LogParser:
         pattern5 = r"\|inactive\|"
         battle = []
         # only keeping what doesn't start with those patterns
-        for i in range(len(x)):
-            if not re.match(pattern1, x[i]) and not re.match(pattern2, x[i]) and not re.match(pattern3,x[i]) \
-                    and not re.match(pattern4, x[i]) and not re.match(pattern5, x[i]):
-                battle.append(x[i])
+        for i in range(len(splitted_battle_log)):
+            if not re.match(pattern1, splitted_battle_log[i]) and not re.match(pattern2, splitted_battle_log[i]) and not re.match(pattern3,splitted_battle_log[i]) \
+                    and not re.match(pattern4, splitted_battle_log[i]) and not re.match(pattern5, splitted_battle_log[i]):
+                battle.append(splitted_battle_log[i])
             return battle
