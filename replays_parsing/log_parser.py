@@ -18,20 +18,15 @@ class LogParser:
         return self.__parse_logs(logs)
 
     def __parse_logs(self, logs) -> List[str]:
-        # TODO [DanicPy]: Parse logs before returning!
-        null = None
-        splitted_battle_log = logs["log"].split("\n")
         battle = []
-        pattern1 = r"\|switch\|"
-        pattern2 = r"\|move\|"
-        pattern3 = r"\|turn\|"
-        pattern4 = r"\|win\|"
-        pattern5 = r"\|faint\|"
-        # keep what starts with those patterns
-        for i in range(len(splitted_battle_log)):
-            if re.match(pattern1, splitted_battle_log[i]) or re.match(pattern2, splitted_battle_log[i]) or re.match(pattern3, splitted_battle_log[i]) or \
-                    re.match(pattern4, splitted_battle_log[i]) or re.match(pattern5, splitted_battle_log[i]):
-                battle.append(splitted_battle_log[i])
+        for log in logs:
+            log_lines = log.split("\n")
+            pattern = r"\|switch|move|turn|win|faint\|"
+
+            # keep what starts with this pattern
+            for line_number in range(len(log_lines)):
+                if re.match(pattern, log_lines[line_number]):
+                    battle.append(log_lines[line_number])
         return battle
 
     def __parse_logs_with_battle_output(self, logs):
