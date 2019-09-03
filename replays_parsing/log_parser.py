@@ -18,8 +18,9 @@ class LogParser:
         return self.__parse_logs(logs)
 
     def __parse_logs(self, logs) -> List[str]:
-        battle = []
+        battles = []
         for log in logs:
+            battle = []
             log_lines = log.split("\n")
             pattern = r"\|switch|move|turn|win|faint\|"
 
@@ -27,7 +28,8 @@ class LogParser:
             for line_number in range(len(log_lines)):
                 if re.match(pattern, log_lines[line_number]):
                     battle.append(log_lines[line_number])
-        return battle
+            battles.append(battle)
+        return battles
 
     def __parse_logs_with_battle_output(self, logs):
         null = None
